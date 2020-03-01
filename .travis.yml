@@ -6,16 +6,17 @@ sudo: require
 
 before_install:
 - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
-- sudo add-apt-repository --yes ppa:beineri/opt-qt562-trusty
+#- sudo add-apt-repository --yes ppa:beineri/opt-qt562-trusty
 - sudo apt-get update -qq
 
 install:
-- sudo apt-get install -qq g++-8 qt56-meta-minimal
+- sudo apt-get install -qq g++-8 #qt56-meta-minimal
 - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 90
 
 script:
-- git submodule update --init --recursive
-- /opt/qt56/bin/qmake
+#- /opt/qt56/bin/qmake
+- qmake --version
+- qmake
 - make
 
 deploy:
