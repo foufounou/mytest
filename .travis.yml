@@ -15,8 +15,8 @@ install:
 
 script:
 #- /opt/qt56/bin/qmake
-- qmake --version
-- qmake
+- qmake-qt5 --version
+- qmake-qt5
 - make
 
 deploy:
