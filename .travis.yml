@@ -16,7 +16,7 @@ before_install:
 - if [ "$QT_BASE" = "56" ]; then sudo add-apt-repository ppa:beineri/opt-qt562-trusty -y; fi
 - if [ "$QT_BASE" = "xenial" ]; then docker pull theshadowx/qt5:xenial; fi
 - if [ "$QT_BASE" = "bionic" ]; then docker pull theshadowx/qt5:bionic; fi
-- if [ "$QT_BASE" = "appimage" ]; then docker pull theshadowx/qt5:xenial; fi
+#- if [ "$QT_BASE" = "appimage" ]; then docker pull theshadowx/qt5:xenial; fi
 
 
 
@@ -47,19 +47,8 @@ fi
     docker run --rm -it -v ${TRAVIS_BUILD_DIR}:/home/root/mytest -w=/home/root/mytest theshadowx/qt5:bionic make deb;
     sudo chmod -R 777 deb;
 fi
-- if [ "$QT_BASE" == "appimage" ]; then
-    docker run --rm -it -v ${TRAVIS_BUILD_DIR}:/home/root/mytest -w=/home/root/mytest theshadowx/qt5:xenial qmake ../src/;
-    docker run --rm -it --privileged -v ${TRAVIS_BUILD_DIR}:/home/root/notes -w=/home/root/mytest theshadowx/qt5:xenial make appimage;
-    sudo chmod 777 Notes-*.AppImage;
-fi
+
 - if [[ "$QT_BASE" == "53" || "$QT_BASE" == "55" || "$QT_BASE" == "56" || "$QT_BASE" == "57" || "$QT_BASE" == "58" ]]; then
     qmake;
     make deb;
 fi
-deploy:
-  provider: releases
-  api_key: "7c1a1517ffbe9ccd5ae18ddb14cf2c691c1f6c6b"
-  file: "mytest"
-  skip_cleanup: true
-  on:
-    tags: true
