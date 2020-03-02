@@ -24,7 +24,7 @@ before_install:
 
 
 install:
-#- sudo apt-get -y install software-properties-common checkinstall xvfb dh-make fakeroot gpgv2 tree
+- sudo apt-get -y install software-properties-common checkinstall xvfb dh-make fakeroot gpgv2 tree
 - sudo apt-get install -qq g++-8 #qt56-meta-minimal
 - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 90
 - if [ "$QT_BASE" == "56" ]; then sudo apt-get install -qq qt56base; source /opt/qt56/bin/qt56-env.sh; fi
@@ -41,5 +41,19 @@ before_script:
 script:
 - echo "$QT_BASE:$TRAVIS_BRANCH----------------------------------------------------------------------------------------------"
 
+- if [ "$QT_BASE" == "xenial" ]; then
+    docker run --rm -it -v ${TRAVIS_BUILD_DIR}:/home/root/mytest -w=/home/root/mytest theshadowx/qt5:xenial qmake;
+    docker run --rm -it -v ${TRAVIS_BUILD_DIR}:/home/root/mytest -w=/home/root/mytest theshadowx/qt5:xenial make deb;
+    sudo chmod -R 777 deb;
+fi
+- if [ "$QT_BASE" == "bionic" ]; then
+    docker run --rm -it -v ${TRAVIS_BUILD_DIR}:/home/root/mytest -w=/home/root/mytest theshadowx/qt5:bionic qmake;
+    docker run --rm -it -v ${TRAVIS_BUILD_DIR}:/home/root/mytest -w=/home/root/mytest theshadowx/qt5:bionic make deb;
+    sudo chmod -R 777 deb;
+fi
 
+- if [[ "$QT_BASE" == "53" || "$QT_BASE" == "55" || "$QT_BASE" == "56" || "$QT_BASE" == "57" || "$QT_BASE" == "58" ]]; then
+    qmake;
+    make deb;
+fi
 
