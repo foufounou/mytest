@@ -46,13 +46,14 @@ script:
     docker run --rm -it -v ${TRAVIS_BUILD_DIR}:/home/root/mytest -w=/home/root/mytest theshadowx/qt5:xenial make deb;
     sudo chmod -R 777 deb;
 fi
+
 - if [ "$QT_BASE" == "bionic" ]; then
     docker run --rm -it -v ${TRAVIS_BUILD_DIR}:/home/root/mytest -w=/home/root/mytest theshadowx/qt5:bionic qmake;
     docker run --rm -it -v ${TRAVIS_BUILD_DIR}:/home/root/mytest -w=/home/root/mytest theshadowx/qt5:bionic make deb;
     sudo chmod -R 777 deb;
 fi
 
-- if [[ "$QT_BASE" == "53" || "$QT_BASE" == "55" || "$QT_BASE" == "56" || "$QT_BASE" == "57" || "$QT_BASE" == "58" ]]; then
+- if [ "$QT_BASE" == "56" ] then
     qmake;
     make deb;
 fi
