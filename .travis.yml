@@ -36,6 +36,7 @@ before_script:
 
 
 script:
+- echo "QT_BASE........ $QT_BASE  \n\n\n"
 - if [ "$QT_BASE" == "xenial" ]; then
     docker run --rm -it -v ${TRAVIS_BUILD_DIR}:/home/root/mytest -w=/home/root/mytest theshadowx/qt5:xenial qmake;
     docker run --rm -it -v ${TRAVIS_BUILD_DIR}:/home/root/mytest -w=/home/root/mytest theshadowx/qt5:xenial make deb;
