@@ -17,16 +17,19 @@ before_install:
 - if [ "$QT_BASE" = "xenial" ]; then docker pull theshadowx/qt5:xenial; fi
 - if [ "$QT_BASE" = "bionic" ]; then docker pull theshadowx/qt5:bionic; fi
 #- if [ "$QT_BASE" = "appimage" ]; then docker pull theshadowx/qt5:xenial; fi
-
-
-
 - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
-- sudo add-apt-repository --yes ppa:beineri/opt-qt562-trusty
+#- sudo add-apt-repository --yes ppa:beineri/opt-qt562-trusty
 - sudo apt-get update -qq
 
+
+
 install:
-- sudo apt-get install -qq g++-8 qt56-meta-minimal
+- sudo apt-get -y install software-properties-common checkinstall xvfb dh-make fakeroot gpgv2 tree
+- sudo apt-get install -qq g++-8 #qt56-meta-minimal
 - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 90
+- if [ "$QT_BASE" == "56" ]; then sudo apt-get install -qq qt56base; source /opt/qt56/bin/qt56-env.sh; fi
+
+
 
 before_script:
 #- if [ "$QT_BASE" == "56" ]; then /opt/qt56/bin/qmake -v; fi
@@ -36,7 +39,7 @@ before_script:
 
 
 script:
-- echo "QT_BASE........ $QT_BASE  \n\n\n"
+- echo "$QT_BASE:$TRAVIS_BRANCH----------------------------------------------------------------------------------------------"
 - if [ "$QT_BASE" == "xenial" ]; then
     docker run --rm -it -v ${TRAVIS_BUILD_DIR}:/home/root/mytest -w=/home/root/mytest theshadowx/qt5:xenial qmake;
     docker run --rm -it -v ${TRAVIS_BUILD_DIR}:/home/root/mytest -w=/home/root/mytest theshadowx/qt5:xenial make deb;
