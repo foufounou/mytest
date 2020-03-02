@@ -7,7 +7,7 @@ env:
   - QT_BASE=56
   - QT_BASE=xenial
   - QT_BASE=bionic
-  - QT_BASE=appimage
+  #- QT_BASE=appimage
   
 service:
 - docker
@@ -29,16 +29,32 @@ install:
 - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 90
 
 before_script:
-- if [ "$QT_BASE" == "56" ]; then /opt/qt56/bin/qmake -v; fi
+#- if [ "$QT_BASE" == "56" ]; then /opt/qt56/bin/qmake -v; fi
+- if [ "$QT_BASE" == "56" ]; then qmake -v; fi
 - if [ "$QT_BASE" == "xenial" ]; then docker run --rm -it theshadowx/qt5:xenial qmake -v; fi
 - if [ "$QT_BASE" == "bionic" ]; then docker run --rm -it theshadowx/qt5:bionic qmake -v; fi
 
 
 script:
-#- /opt/qt56/bin/qmake
-- make
-
-
+- if [ "$QT_BASE" == "xenial" ]; then
+    docker run --rm -it -v ${TRAVIS_BUILD_DIR}:/home/root/mytest -w=/home/root/mytest theshadowx/qt5:xenial qmake;
+    docker run --rm -it -v ${TRAVIS_BUILD_DIR}:/home/root/mytest -w=/home/root/mytest theshadowx/qt5:xenial make deb;
+    sudo chmod -R 777 deb;
+fi
+- if [ "$QT_BASE" == "bionic" ]; then
+    docker run --rm -it -v ${TRAVIS_BUILD_DIR}:/home/root/mytest -w=/home/root/mytest theshadowx/qt5:bionic qmake;
+    docker run --rm -it -v ${TRAVIS_BUILD_DIR}:/home/root/mytest -w=/home/root/mytest theshadowx/qt5:bionic make deb;
+    sudo chmod -R 777 deb;
+fi
+- if [ "$QT_BASE" == "appimage" ]; then
+    docker run --rm -it -v ${TRAVIS_BUILD_DIR}:/home/root/mytest -w=/home/root/mytest theshadowx/qt5:xenial qmake ../src/;
+    docker run --rm -it --privileged -v ${TRAVIS_BUILD_DIR}:/home/root/notes -w=/home/root/mytest theshadowx/qt5:xenial make appimage;
+    sudo chmod 777 Notes-*.AppImage;
+fi
+- if [[ "$QT_BASE" == "53" || "$QT_BASE" == "55" || "$QT_BASE" == "56" || "$QT_BASE" == "57" || "$QT_BASE" == "58" ]]; then
+    qmake;
+    make deb;
+fi
 deploy:
   provider: releases
   api_key: "7c1a1517ffbe9ccd5ae18ddb14cf2c691c1f6c6b"
