@@ -38,6 +38,7 @@ script:
 #- /opt/qt56/bin/qmake
 - make
 
+
 deploy:
   provider: releases
   api_key: "7c1a1517ffbe9ccd5ae18ddb14cf2c691c1f6c6b"
