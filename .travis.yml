@@ -40,21 +40,6 @@ before_script:
 
 script:
 - echo "$QT_BASE:$TRAVIS_BRANCH----------------------------------------------------------------------------------------------"
+- echo $PWD
 
-- if [ "$QT_BASE" == "xenial" ]; then
-    docker run --rm -it -v ${TRAVIS_BUILD_DIR}:/home/root/mytest -w=/home/root/mytest theshadowx/qt5:xenial qmake;
-    docker run --rm -it -v ${TRAVIS_BUILD_DIR}:/home/root/mytest -w=/home/root/mytest theshadowx/qt5:xenial make deb;
-    sudo chmod -R 777 deb;
-fi
-
-- if [ "$QT_BASE" == "bionic" ]; then
-    docker run --rm -it -v ${TRAVIS_BUILD_DIR}:/home/root/mytest -w=/home/root/mytest theshadowx/qt5:bionic qmake;
-    docker run --rm -it -v ${TRAVIS_BUILD_DIR}:/home/root/mytest -w=/home/root/mytest theshadowx/qt5:bionic make deb;
-    sudo chmod -R 777 deb;
-fi
-
-- if [ "$QT_BASE" == "56" ] then
-    qmake;
-    make deb;
-fi
 
