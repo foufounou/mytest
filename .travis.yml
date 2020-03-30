@@ -5,8 +5,8 @@ sudo: require
 
 env:
   - QT_BASE=510
-  - QT_BASE=xenial
-  - QT_BASE=bionic
+#  - QT_BASE=xenial
+#  - QT_BASE=bionic
   #- QT_BASE=appimage
   
 service:
@@ -45,4 +45,16 @@ script:
 
 
 after_success:
-- if [ "$QT_BASE" == "510" ]; curl --upload-file ./mytest https://transfer.sh/foufounou/mytest; fi
+- curl --upload-file ./mytest https://transfer.sh/mytest
+#- if [ "$QT_BASE" == "510" ]; curl --upload-file ./mytest https://transfer.sh/mytest; fi
+
+deploy:
+  provider: releases
+  skip_cleanup: true
+  draft: true
+  file:
+    - mytest
+  file_glob: true
+  on:
+    repo: foufounou/mytest
+    tags: true
