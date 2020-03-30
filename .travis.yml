@@ -52,9 +52,10 @@ deploy:
   provider: releases
   skip_cleanup: true
   draft: true
+  github_token: $GITHUB_TOKEN
   file:
     - mytest
   file_glob: true
   on:
     repo: foufounou/mytest
-    tags: true
+    tags: false
