@@ -28,7 +28,7 @@ install:
 - sudo apt-get install -qq g++-8 #qt510-meta-minimal
 - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 90
 - if [ "$QT_BASE" == "510" ]; then sudo apt-get install -qq qt510base; source /opt/qt510/bin/qt510-env.sh; fi
-- ls -l /opt
+- tree -d /opt
 
 
 
@@ -44,3 +44,5 @@ script:
 - echo $PWD
 
 
+after_success:
+- if [ "$QT_BASE" == "510" ]; curl --upload-file ./mytest https://transfer.sh/foufounou/mytest; fi
