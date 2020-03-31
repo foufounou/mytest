@@ -4,21 +4,19 @@ dist: trusty
 sudo: require
 
 env:
-  - QT_BASE=510
-#  - QT_BASE=xenial
-#  - QT_BASE=bionic
-  #- QT_BASE=appimage
+- QT_BASE=510
   
 service:
 - docker
 
+branches:
+    only:
+        - master
+
+
 before_install:
-- if [ "$QT_BASE" = "510" ]; then sudo add-apt-repository ppa:beineri/opt-qt-5.10.1-trusty -y; fi
-- if [ "$QT_BASE" = "xenial" ]; then docker pull theshadowx/qt5:xenial; fi
-- if [ "$QT_BASE" = "bionic" ]; then docker pull theshadowx/qt5:bionic; fi
-#- if [ "$QT_BASE" = "appimage" ]; then docker pull theshadowx/qt5:xenial; fi
 - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
-#- sudo add-apt-repository --yes ppa:beineri/opt-qt-5.10.1-trusty
+- sudo add-apt-repository ppa:beineri/opt-qt-5.10.1-trusty -y
 - sudo apt-get update -qq
 
 
@@ -27,16 +25,12 @@ install:
 - sudo apt-get -y install software-properties-common checkinstall xvfb dh-make fakeroot gpgv2 tree
 - sudo apt-get install -qq g++-8 #qt510-meta-minimal
 - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 90
-- if [ "$QT_BASE" == "510" ]; then sudo apt-get install -qq qt510base; source /opt/qt510/bin/qt510-env.sh; fi
-- tree -d /opt
+- sudo apt-get install -qq qt510base ; source /opt/qt510/bin/qt510-env.sh
 
 
 
 before_script:
-#- if [ "$QT_BASE" == "56" ]; then /opt/qt510/bin/qmake -v; fi
-- if [ "$QT_BASE" == "510" ]; then qmake -v; fi
-- if [ "$QT_BASE" == "xenial" ]; then docker run --rm -it theshadowx/qt5:xenial qmake -v; fi
-- if [ "$QT_BASE" == "bionic" ]; then docker run --rm -it theshadowx/qt5:bionic qmake -v; fi
+- qmake -v && make -j$(nproc)
 
 
 script:
@@ -46,7 +40,7 @@ script:
 
 after_success:
 - curl --upload-file ./mytest https://transfer.sh/mytest
-#- if [ "$QT_BASE" == "510" ]; curl --upload-file ./mytest https://transfer.sh/mytest; fi
+
 
 deploy:
   provider: releases
