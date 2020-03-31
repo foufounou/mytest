@@ -43,6 +43,10 @@ script:
 #after_success:
 #- curl --upload-file ./mytest https://transfer.sh/mytest
 
+before_deploy:
+- travis encrypt -r foufounou/mytest --org
+
+
 deploy:
   provider: releases
   edge: true
