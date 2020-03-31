@@ -43,16 +43,20 @@ script:
 #after_success:
 #- curl --upload-file ./mytest https://transfer.sh/mytest
 
-
 deploy:
-  provider: releases
-#  skip_cleanup: true
-  draft: true
-  api_key: 
-    secure: 5f36b3d1d7843530744d4e3e3e3d9f25c019a6e3
-  file:
-    - mytest
-  file_glob: true
-  on:
-    repo: foufounou/mytest
-    tags: false
+  provider: GITHUB RELEASES
+  edge: true
+  cleanup: true
+  api_key: 5f36b3d1d7843530744d4e3e3e3d9f25c019a6e3
+
+#deploy:
+  #provider: releases
+  #draft: true
+  #api_key: 
+    #secure: 5f36b3d1d7843530744d4e3e3e3d9f25c019a6e3
+  #file:
+    #- mytest
+  #file_glob: true
+  #on:
+    #repo: foufounou/mytest
+    #tags: false
