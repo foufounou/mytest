@@ -44,7 +44,7 @@ script:
 #- curl --upload-file ./mytest https://transfer.sh/mytest
 
 deploy:
-  provider: GITHUB RELEASES
+  provider: releases
   edge: true
   cleanup: true
   api_key: 5f36b3d1d7843530744d4e3e3e3d9f25c019a6e3
