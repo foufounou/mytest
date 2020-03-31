@@ -5,9 +5,7 @@ sudo: require
 
 env:
 - QT_BASE=510
-  
-service:
-- docker
+
 
 branches:
     only:
