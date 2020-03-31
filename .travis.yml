@@ -49,7 +49,7 @@ deploy:
 #  skip_cleanup: true
   draft: true
   api_key: 
-    secure: 23846948353a0f82823a706e984f0dede35ccd7d
+    secure: "23846948353a0f82823a706e984f0dede35ccd7d"
   file:
     - mytest
   file_glob: true
