@@ -43,15 +43,13 @@ script:
 #after_success:
 #- curl --upload-file ./mytest https://transfer.sh/mytest
 
-before_deploy:
-- travis encrypt -r foufounou/mytest --org
 
 
 deploy:
   provider: releases
   edge: true
   cleanup: true
-  token: 5f36b3d1d7843530744d4e3e3e3d9f25c019a6e3
+  token: $GITHUB_TOKEN
 
 #deploy:
   #provider: releases
