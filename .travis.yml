@@ -1,7 +1,9 @@
 language: cpp
 compiler: gcc
+os: linux
 dist: trusty
 sudo: require
+
 
 env:
 - QT_BASE=510
@@ -44,10 +46,10 @@ script:
 
 deploy:
   provider: releases
-  skip_cleanup: true
+#  skip_cleanup: true
   draft: true
   api_key: 
-    secure: 5ea68a66245eacd118a73ea2cd821b06052b8c06
+    secure: 23846948353a0f82823a706e984f0dede35ccd7d
   file:
     - mytest
   file_glob: true
