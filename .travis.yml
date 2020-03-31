@@ -47,9 +47,12 @@ script:
 
 deploy:
   provider: releases
+  draft: true
   edge: true
   cleanup: true
   token: $GITHUB_TOKEN
+  file:
+   - mytest
 
 #deploy:
   #provider: releases
