@@ -46,7 +46,7 @@ deploy:
   provider: releases
   skip_cleanup: true
   draft: true
-  github_token: $GITHUB_TOKEN
+  github_token: 5ea68a66245eacd118a73ea2cd821b06052b8c06
   file:
     - mytest
   file_glob: true
