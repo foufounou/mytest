@@ -3,27 +3,41 @@ compiler: gcc
 dist: trusty
 sudo: require
 
-env:
-- QT_BASE=510
+matrix:
+  include:
+    # works on Precise and Trusty
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - beineri/opt-qt-5.10.1-trusty
+          packages:
+            - qt510-meta-minimal g++-8
+      env:
+        - MATRIX_EVAL="CC=gcc-8 && CXX=gcc++-8"
+
+#env:
+#- QT_BASE=510
 
 
-branches:
-    only:
-        - master
+#branches:
+    #only:
+        #- master
 
 
-before_install:
-- sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
-- sudo add-apt-repository ppa:beineri/opt-qt-5.10.1-trusty -y
-- sudo apt-get update -qq
+#before_install:
+#- sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
+#- sudo add-apt-repository ppa:beineri/opt-qt-5.10.1-trusty -y
+#- sudo apt-get update -qq
 
 
 
-install:
-- sudo apt-get -y install software-properties-common checkinstall xvfb dh-make fakeroot gpgv2 tree
-- sudo apt-get install -qq g++-8 #qt510-meta-minimal
-- sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 90
-- sudo apt-get install -qq qt510base ; source /opt/qt510/bin/qt510-env.sh
+#install:
+#- sudo apt-get -y install software-properties-common checkinstall xvfb dh-make fakeroot gpgv2 tree
+#- sudo apt-get install -qq g++-8 #qt510-meta-minimal
+#- sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 90
+#- sudo apt-get install -qq qt510base ; source /opt/qt510/bin/qt510-env.sh
 
 
 
@@ -31,13 +45,15 @@ before_script:
 - qmake -v && make -j$(nproc)
 
 
-script:
-- echo "$QT_BASE:$TRAVIS_BRANCH----------------------------------------------------------------------------------------------"
-- echo $PWD
+#script:
+#- echo "$QT_BASE:$TRAVIS_BRANCH----------------------------------------------------------------------------------------------"
+#- echo $PWD
+#- tree .
+#- echo "--------------------"
 
 
-after_success:
-- curl --upload-file ./mytest https://transfer.sh/mytest
+#after_success:
+#- curl --upload-file ./mytest https://transfer.sh/mytest
 
 
 deploy:
