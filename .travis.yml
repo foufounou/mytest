@@ -23,9 +23,9 @@ before_install:
 
 install:
 - sudo apt-get -y install software-properties-common checkinstall xvfb dh-make fakeroot gpgv2 tree
-- sudo apt-get install -qq g++-8
+- sudo apt-get install -qq g++-8 qt510base
 - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 90
-- sudo apt-get install -qq qt510base ; source /opt/qt510/bin/qt510-env.sh
+- source /opt/qt510/bin/qt510-env.sh
 
 
 
@@ -49,7 +49,7 @@ deploy:
 #  skip_cleanup: true
   draft: true
   api_key: 
-    secure: "23846948353a0f82823a706e984f0dede35ccd7d"
+    secure: 5f36b3d1d7843530744d4e3e3e3d9f25c019a6e3
   file:
     - mytest
   file_glob: true
