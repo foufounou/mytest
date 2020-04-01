@@ -7,12 +7,12 @@ jobs:
         - os: linux
           dist: trusty
           env: _DIST=trusty
-        - os: linux
-          dist: xenial
-          env: _DIST=xenial
-        - os: linux
-          dist: bionic
-          env: _DIST=bionic
+        #- os: linux
+          #dist: xenial
+          #env: _DIST=xenial
+        #- os: linux
+          #dist: bionic
+          #env: _DIST=bionic
 
 branches:
     only:
@@ -28,10 +28,9 @@ before_install:
 install:
 - if [[ "${TRAVIS_OS_NAME}" == linux ]]; then sudo apt-get -y install software-properties-common checkinstall xvfb dh-make fakeroot gpgv2 tree g++-8 ; fi
 - if [[ "${TRAVIS_OS_NAME}" == linux ]]; then export CC=gcc-8 && export CXX=g++-8 ; fi
-#- if [[ "${_DIST}" == trusty ]]; then sudo apt-get install -qq qt59-meta-minimal && source /opt/qt59/bin/qt59-env.sh ; fi
-- if [[ "${_DIST}" == trusty ]]; then sudo apt-get install -qq qt59-meta-full  && source /opt/qt59/bin/qt59-env.sh ; fi
+- if [[ "${_DIST}" == trusty ]]; then sudo apt-get install -qq qt59-meta-minimal && source /opt/qt59/bin/qt59-env.sh ; fi
 - if [ "${_DIST}" == xenial ] || [ "${_DIST}" == bionic ] ; then sudo apt-get install -qq qt512-meta-minimal && source /opt/qt512/bin/qt512-env.sh ; fi
-- sudo apt-get install libmarkdown2-dev
+- sudo apt-get install libmarkdown2-dev libmarkdown2
 
 
 before_script:
