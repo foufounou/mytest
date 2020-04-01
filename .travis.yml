@@ -32,7 +32,7 @@ install:
 - if [[ "${_DIST}" == trusty ]]; then sudo apt-get install -qq qt510-meta-minimal  && source /opt/qt510/bin/qt510-env.sh ; fi
 #- if [[ "${_DIST}" == xenial ]]; then sudo apt-get install -qq qt514base && source /opt/qt514/bin/qt514-env.sh ; fi
 #- if [[ "${_DIST}" == bionic ]]; then sudo apt-get install -qq qt514base && source /opt/qt514/bin/qt514-env.sh ; fi
-- if [ "${_DIST}" == xenial ] || [ "${_DIST}" == bionic ] ; then sudo apt-get install -qq qt514base && source /opt/qt514/bin/qt514-env.sh ; fi
+- if [ "${_DIST}" == xenial ] || [ "${_DIST}" == bionic ] ; then sudo apt-get install -qq qt514-meta-minimal && source /opt/qt514/bin/qt514-env.sh ; fi
 
 
 
