@@ -53,7 +53,7 @@ deploy:
   token: $GITHUB_TOKEN
   file:
    - mytest
-   tags: true
+  tags: true
 
 #deploy:
   #provider: releases
