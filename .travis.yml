@@ -47,15 +47,16 @@ script:
 
 deploy:
   provider: releases
-  draft: false
+  draft: true
   edge: true
   cleanup: true
   token: $GITHUB_TOKEN
   file:
    - mytest
+  file_glob: true
   on:
     repo: foufounou/mytest
-    tags: true
+    tags: false
 
 
 #deploy:
