@@ -1,4 +1,5 @@
 .qmake.stash
 Makefile
-*.o
+main.o
+a.out
 mytest

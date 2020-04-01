@@ -1,0 +1,25 @@
+# Maintainer: foufounou
+
+pkgname=mytest
+pkgver=0.5.1
+pkgrel=1
+pkgdesc="A Markdown notes manager"
+arch=('x86_64')
+url="https://github.com/foufounou/mytest"
+license=('GPL3')
+depends=('qt5-base')
+makedepends=('qt5-tools' 'git' 'gcc' 'make')
+source=("$pkgname::git+https://github.com/foufounou/mytest.git")
+md5sums=('SKIP')
+
+build() {
+    cd "$pkgname"
+    qmake PREFIX=/usr
+    make
+}
+
+package() {
+    cd $pkgname/
+    make INSTALL_ROOT=$pkgdir install
+    echo "from PKGBUILD" && pwd && tree .
+}

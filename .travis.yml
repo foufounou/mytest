@@ -1,6 +1,9 @@
 language: cpp
+os: linux
 dist: trusty
 
+services:
+- docker
 
 jobs:
     include:
@@ -18,44 +21,32 @@ branches:
     only:
         - master
 
+archlinux:
+  packages:
+  - qt5-base
+  - qt5-tools
+  - tree
+  mount:
+  - ~/.pkg-cache:/var/cache/pacman/pkg
+  #before_install:
+  #- "sudo ln -s /dev/null /etc/pacman.d/hooks/package-cleanup.hook"
+  script:
+  - echo "before makepkg" && pwd && tree .
+  - "cd packaging && makepkg -s && cd .."
+  - echo "after makepkg" && tree .
+
+  
 before_install:
-- if [[ "${TRAVIS_OS_NAME}" == linux ]]; then sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test ; fi
-- if [[ "${_DIST}" == trusty ]]; then sudo add-apt-repository ppa:beineri/opt-qt597-trusty -y ; fi
-- if [ "${_DIST}" == xenial ] || [ "${_DIST}" == bionic ] ; then sudo add-apt-repository ppa:beineri/opt-qt-5.12.2-$_DIST -y ; fi
-- if [[ "${TRAVIS_OS_NAME}" == linux ]]; then sudo apt-get update -qq ; fi
+- sudo apt-get update -qq
 
 
 install:
-- if [[ "${TRAVIS_OS_NAME}" == linux ]]; then sudo apt-get -y install software-properties-common checkinstall xvfb dh-make fakeroot gpgv2 tree g++-8 ; fi
-- if [[ "${TRAVIS_OS_NAME}" == linux ]]; then export CC=gcc-8 && export CXX=g++-8 ; fi
-- if [[ "${_DIST}" == trusty ]]; then sudo apt-get install -qq qt59-meta-minimal && source /opt/qt59/bin/qt59-env.sh ; fi
-- if [ "${_DIST}" == xenial ] || [ "${_DIST}" == bionic ] ; then sudo apt-get install -qq qt512-meta-minimal && source /opt/qt512/bin/qt512-env.sh ; fi
-- cat /opt/qt5*/bin/qt*-env.sh
-
-
-before_script:
-- if [[ "${_DIST}" == trusty ]]; then /opt/qt59/bin/qmake ; fi
-- cat Makefile
-
+- sudo apt-get install -qq tree
 
 script:
-- make -j$(nproc)
+- "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
+- pwd && tree .
 
-
-after_success:
-#- mkdir -p appimage/mytest/usr/bin
-#- cp mytest appimage/mytest/usr/bin
-- mkdir appimage
-- cp -t appimage mytest.desktop mytest.png LICENSE mytest
-- wget -c https://github.com/probonopd/linuxdeployqt/releases/download/5/linuxdeployqt-5-x86_64.AppImage
-- chmod +x linuxdeployqt-5-x86_64.AppImage
-- unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH ; QT_BASE_DIR
-- if [[ "${_DIST}" != bionic ]]; then ./linuxdeployqt-5-x86_64.AppImage appimage/mytest -bundle-non-qt-libs ; fi
-- echo $PWD
-- tree .
-- ld -v
-- ls -l /opt/qt5*/lib/libQt5Core.so.5
-- ldd mytest
 
 
 #deploy:
