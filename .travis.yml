@@ -49,7 +49,7 @@ after_success:
 - cp -t appimage/mytest/ mytest.desktop mytest.png
 - wget -c https://github.com/probonopd/linuxdeployqt/releases/download/6/linuxdeployqt-6-x86_64.AppImage
 - chmod +x linuxdeployqt-6-x86_64.AppImage
-- ./linuxdeployqt-6-x86_64.AppImage -appimage appimage/mytest/usr/bin/mytest
+- ./linuxdeployqt-6-x86_64.AppImage appimage/mytest/usr/bin/mytest -appimage
 - echo $PWD
 - tree .
 
