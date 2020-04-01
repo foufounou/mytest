@@ -49,7 +49,7 @@ after_success:
 - wget -c https://github.com/probonopd/linuxdeployqt/releases/download/5/linuxdeployqt-5-x86_64.AppImage
 - chmod +x linuxdeployqt-5-x86_64.AppImage
 - unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH ; QT_BASE_DIR
-- if [[ "${_DIST}" != bionic ]]; then ./linuxdeployqt-5-x86_64.AppImage appimage/mytest/usr/bin/mytest -appimage ; fi
+- if [[ "${_DIST}" != bionic ]]; then ./linuxdeployqt-5-x86_64.AppImage appimage/mytest -appimage ; fi
 - echo $PWD
 - tree .
 - ld -v
