@@ -53,7 +53,9 @@ deploy:
   token: $GITHUB_TOKEN
   file:
    - mytest
-  tags: true
+  on:
+    repo: foufounou/mytest
+    tags: true
 
 #deploy:
   #provider: releases
