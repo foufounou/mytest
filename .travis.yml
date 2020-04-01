@@ -10,9 +10,9 @@ jobs:
         - os: linux
           dist: xenial
           env: _DIST=xenial
-        #- os: linux
-          #dist: bionic
-          #env: _DIST=bionic
+        - os: linux
+          dist: bionic
+          env: _DIST=bionic
 
 branches:
     only:
