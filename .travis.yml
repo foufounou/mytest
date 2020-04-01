@@ -28,7 +28,8 @@ before_install:
 install:
 - if [[ "${TRAVIS_OS_NAME}" == linux ]]; then sudo apt-get -y install software-properties-common checkinstall xvfb dh-make fakeroot gpgv2 tree g++-8 ; fi
 - if [[ "${TRAVIS_OS_NAME}" == linux ]]; then export CC=gcc-8 && export CXX=g++-8 ; fi
-- if [[ "${_DIST}" == trusty ]]; then sudo apt-get install -qq qt510base qt510x11extras qt510tools qt510svg  && source /opt/qt510/bin/qt510-env.sh ; fi
+#- if [[ "${_DIST}" == trusty ]]; then sudo apt-get install -qq qt510base qt510x11extras qt510tools qt510svg qt510-meta-minimal  && source /opt/qt510/bin/qt510-env.sh ; fi
+- if [[ "${_DIST}" == trusty ]]; then sudo apt-get install -qq qt510-meta-minimal  && source /opt/qt510/bin/qt510-env.sh ; fi
 #- if [[ "${_DIST}" == xenial ]]; then sudo apt-get install -qq qt514base && source /opt/qt514/bin/qt514-env.sh ; fi
 #- if [[ "${_DIST}" == bionic ]]; then sudo apt-get install -qq qt514base && source /opt/qt514/bin/qt514-env.sh ; fi
 - if [ "${_DIST}" == xenial ] || [ "${_DIST}" == bionic ] ; then sudo apt-get install -qq qt514base && source /opt/qt514/bin/qt514-env.sh ; fi
