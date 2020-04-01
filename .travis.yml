@@ -47,7 +47,7 @@ script:
 
 deploy:
   provider: releases
-  draft: true
+  draft: false
   edge: true
   cleanup: true
   token: $GITHUB_TOKEN
