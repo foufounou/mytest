@@ -35,6 +35,7 @@ install:
 
 before_script:
 - if [[ "${_DIST}" == trusty ]]; then /opt/qt59/bin/qmake ; fi
+- cat Makefile
 
 
 script:
