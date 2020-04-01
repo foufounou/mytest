@@ -2,7 +2,6 @@ language: cpp
 compiler: gcc
 os: linux
 dist: trusty
-sudo: require
 
 
 env:
@@ -30,14 +29,11 @@ install:
 
 
 before_script:
-- qmake -v && make -j$(nproc)
+- qmake -v
 
 
 script:
-- echo "$QT_BASE:$TRAVIS_BRANCH----------------------------------------------------------------------------------------------"
-- echo $PWD
-- tree .
-- echo "--------------------"
+- make -j$(nproc)
 
 
 #after_success:
