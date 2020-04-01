@@ -6,13 +6,10 @@ jobs:
     include:
         - os: linux
           dist: trusty
-          _DISTRO_="trusty"
         - os: linux
           dist: xenial
-          _DISTRO_="xenial"
         - os: linux
           dist: bionic
-          _DISTRO_="bionic"
 
 branches:
     only:
