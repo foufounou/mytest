@@ -54,6 +54,7 @@ after_success:
 - echo $PWD
 - tree .
 - ld -v
+- ls -l /opt/qt510/lib/libQt5Core.so.5
 
 
 #deploy:
