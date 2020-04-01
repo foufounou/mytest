@@ -34,7 +34,7 @@ install:
 
 
 before_script:
-- qmake
+- if [[ "${_DIST}" == trusty ]]; then /opt/qt59/bin/qmake ; fi
 
 
 script:
