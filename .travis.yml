@@ -53,6 +53,7 @@ after_success:
 - if [[ "${_DIST}" != bionic ]]; then ./linuxdeployqt-5-x86_64.AppImage appimage/mytest/usr/bin/mytest -appimage ; fi
 - echo $PWD
 - tree .
+- ld -v
 
 
 #deploy:
