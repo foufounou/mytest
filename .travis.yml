@@ -42,9 +42,10 @@ script:
 
 
 after_success:
-- mkdir -p appimage/mytest/usr/bin
-- cp mytest appimage/mytest/usr/bin
-- cp -t appimage/mytest/ mytest.desktop mytest.png LICENSE
+#- mkdir -p appimage/mytest/usr/bin
+#- cp mytest appimage/mytest/usr/bin
+- mkdir appimage
+- cp -t appimage mytest.desktop mytest.png LICENSE mytest
 - wget -c https://github.com/probonopd/linuxdeployqt/releases/download/5/linuxdeployqt-5-x86_64.AppImage
 - chmod +x linuxdeployqt-5-x86_64.AppImage
 - unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH ; QT_BASE_DIR
