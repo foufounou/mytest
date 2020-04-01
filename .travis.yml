@@ -39,12 +39,17 @@ install:
 
 
 before_script:
-- qmake -v
+- qmake
 
 
 script:
 - make -j$(nproc)
 
+
+
+after_success:
+- echo $PWD
+- tree .
 
 #deploy:
   #provider: releases
