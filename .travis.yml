@@ -1,8 +1,13 @@
 language: cpp
-compiler: gcc
-os: linux
 dist: trusty
 
+
+jobs:
+    include:
+        - os: linux
+          dist: trusty
+        - os: linux
+          dist: bionic
 
 branches:
     only:
@@ -10,54 +15,39 @@ branches:
 
 
 before_install:
-- sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
-- sudo add-apt-repository ppa:beineri/opt-qt-5.10.1-trusty -y
-- sudo apt-get update -qq
+- echo "------------------------------"
+- echo "------ distro $TRAVIS_DIST"
+- echo "------ os $TRAVIS_OS_NAME"
+#- sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test && 
+#- sudo add-apt-repository ppa:beineri/opt-qt-5.10.1-trusty -y
+#- sudo apt-get update -qq
 
 
 
-install:
-- sudo apt-get -y install software-properties-common checkinstall xvfb dh-make fakeroot gpgv2 tree
-- sudo apt-get install -qq g++-8 qt510base
-- sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 90
-- source /opt/qt510/bin/qt510-env.sh
+#install:
+#- sudo apt-get -y install software-properties-common checkinstall xvfb dh-make fakeroot gpgv2 tree
+#- sudo apt-get install -qq g++-8 qt510base
+#- sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 90
+#- source /opt/qt510/bin/qt510-env.sh
 
 
 
-before_script:
-- qmake -v
+#before_script:
+#- qmake -v
 
 
-script:
-- make -j$(nproc)
-
-
-#after_success:
-#- curl --upload-file ./mytest https://transfer.sh/mytest
-
-
-
-deploy:
-  provider: releases
-  draft: true
-  edge: true
-  cleanup: true
-  token: $GITHUB_TOKEN
-  file:
-   - mytest
-  file_glob: true
-  on:
-    repo: foufounou/mytest
-    tags: false
+#script:
+#- make -j$(nproc)
 
 
 #deploy:
   #provider: releases
   #draft: true
-  #api_key: 
-    #secure: 5f36b3d1d7843530744d4e3e3e3d9f25c019a6e3
+  #edge: true
+  #cleanup: true
+  #token: $GITHUB_TOKEN
   #file:
-    #- mytest
+   #- mytest
   #file_glob: true
   #on:
     #repo: foufounou/mytest
