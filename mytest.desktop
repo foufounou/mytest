@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Categories=Utility;
+Name=mytest
+Comment=a good test
+TryExec=mytest
+Exec=mytest %F
+Icon=mytest
+Terminal=false

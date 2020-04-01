@@ -18,12 +18,9 @@ branches:
     only:
         - master
 
-
 before_install:
 - if [[ "${TRAVIS_OS_NAME}" == linux ]]; then sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test ; fi
 - if [[ "${_DIST}" == trusty ]]; then sudo add-apt-repository ppa:beineri/opt-qt-5.10.1-trusty -y ; fi
-#- if [[ "${_DIST}" == xenial ]]; then sudo add-apt-repository ppa:beineri/opt-qt-5.14.1-xenial -y ; fi
-#- if [[ "${_DIST}" == bionic ]]; then sudo add-apt-repository ppa:beineri/opt-qt-5.14.1-bionic -y ; fi
 - if [ "${_DIST}" == xenial ] || [ "${_DIST}" == bionic ] ; then sudo add-apt-repository ppa:beineri/opt-qt-5.14.1-$_DIST -y ; fi
 - if [[ "${TRAVIS_OS_NAME}" == linux ]]; then sudo apt-get update -qq ; fi
 
@@ -46,10 +43,16 @@ script:
 - make -j$(nproc)
 
 
-
 after_success:
+- mkdir -p appimage/mytest/usr/bin
+- cp mytest appimage/mytest/usr/bin
+- cp -t appimage/mytest/ mytest.desktop mytest.png
+- wget -c https://github.com/probonopd/linuxdeployqt/releases/download/6/linuxdeployqt-6-x86_64.AppImage
+- chmod +x linuxdeployqt-6-x86_64.AppImage
+- ./linuxdeployqt-6-x86_64.AppImage -appimage appimage/mytest/usr/bin/mytest
 - echo $PWD
 - tree .
+
 
 #deploy:
   #provider: releases
