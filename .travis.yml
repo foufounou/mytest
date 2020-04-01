@@ -4,10 +4,6 @@ os: linux
 dist: trusty
 
 
-env:
-- QT_BASE=510
-
-
 branches:
     only:
         - master
