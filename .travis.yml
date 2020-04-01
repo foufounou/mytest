@@ -25,16 +25,16 @@ before_install:
 - if [[ "${_DIST}" == xenial ]]; then echo "this is xenial" ; fi
 
 
-#install:
-#- sudo apt-get -y install software-properties-common checkinstall xvfb dh-make fakeroot gpgv2 tree
-#- sudo apt-get install -qq g++-8 qt510base
-#- sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 90
-#- source /opt/qt510/bin/qt510-env.sh
+install:
+- sudo apt-get -y install software-properties-common checkinstall xvfb dh-make fakeroot gpgv2 tree g++-8
+- sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 90
+- if [[ "${_DIST}" == trusty ]]; then sudo apt-get install -qq qt510base && source /opt/qt510/bin/qt510-env.sh ; fi
+- if [[ "${_DIST}" == xenial ]]; then sudo apt-get install -qq qt5-default qt5-qmake ; fi
 
 
 
-#before_script:
-#- qmake -v
+before_script:
+- qmake -v
 
 
 #script:
