@@ -20,7 +20,7 @@ branches:
 
 before_install:
 - if [[ "${TRAVIS_OS_NAME}" == linux ]]; then sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test ; fi
-- if [[ "${_DIST}" == trusty ]]; then sudo add-apt-repository ppa:beineri/opt-qt597-trusty -y ; fi
+- if [[ "${_DIST}" == trusty ]]; then sudo add-apt-repository ppa:beineri/opt-qt562-trusty -y ; fi
 - if [ "${_DIST}" == xenial ] || [ "${_DIST}" == bionic ] ; then sudo add-apt-repository ppa:beineri/opt-qt-5.12.7-$_DIST -y ; fi
 - if [[ "${TRAVIS_OS_NAME}" == linux ]]; then sudo apt-get update -qq ; fi
 
@@ -28,7 +28,7 @@ before_install:
 install:
 - if [[ "${TRAVIS_OS_NAME}" == linux ]]; then sudo apt-get -y install software-properties-common checkinstall xvfb dh-make fakeroot gpgv2 tree g++-8 ; fi
 - if [[ "${TRAVIS_OS_NAME}" == linux ]]; then export CC=gcc-8 && export CXX=g++-8 ; fi
-- if [[ "${_DIST}" == trusty ]]; then sudo apt-get install -qq qt59-meta-minimal && source /opt/qt59/bin/qt59-env.sh ; fi
+- if [[ "${_DIST}" == trusty ]]; then sudo apt-get install -qq qt56-meta-minimal && source /opt/qt56/bin/qt56-env.sh ; fi
 - if [ "${_DIST}" == xenial ] || [ "${_DIST}" == bionic ] ; then sudo apt-get install -qq qt512-meta-minimal && source /opt/qt512/bin/qt512-env.sh ; fi
 - cat /opt/qt5*/bin/qt*-env.sh
 
@@ -44,7 +44,7 @@ script:
 after_success:
 - mkdir -p appimage/mytest/usr/bin
 - cp mytest appimage/mytest/usr/bin
-- cp -t appimage/mytest/ mytest.desktop mytest.png
+- cp -t appimage/mytest/ mytest.desktop mytest.png LICENSE
 - wget -c https://github.com/probonopd/linuxdeployqt/releases/download/5/linuxdeployqt-5-x86_64.AppImage
 - chmod +x linuxdeployqt-5-x86_64.AppImage
 - if [[ "${_DIST}" != bionic ]]; then ./linuxdeployqt-5-x86_64.AppImage appimage/mytest/usr/bin/mytest -appimage ; fi
