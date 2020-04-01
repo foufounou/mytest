@@ -20,17 +20,20 @@ branches:
 
 
 before_install:
-- if [[ "${_DIST}" == trusty ]]; then sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test && sudo add-apt-repository ppa:beineri/opt-qt-5.10.1-trusty -y && sudo apt-get update -qq ; fi
-- if [[ "${_DIST}" == trusty ]]; then echo "this is trusty" ; fi
-- if [[ "${_DIST}" == xenial ]]; then echo "this is xenial" ; fi
+- if [[ "${TRAVIS_OS_NAME}" == linux ]]; then sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test ; fi
+- if [[ "${_DIST}" == trusty ]]; then sudo add-apt-repository ppa:beineri/opt-qt-5.10.1-trusty -y ; fi
+- if [[ "${_DIST}" == xenial ]]; then sudo add-apt-repository ppa:beineri/opt-qt-5.14.1-xenial -y ; fi
+- if [[ "${_DIST}" == bionic ]]; then sudo add-apt-repository ppa:beineri/opt-qt-5.14.1-bionic -y ; fi
+
+- if [[ "${TRAVIS_OS_NAME}" == linux ]]; then sudo apt-get update -qq ; fi
 
 
 install:
-- sudo apt-get -y install software-properties-common checkinstall xvfb dh-make fakeroot gpgv2 tree g++-8
-#- sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 90
-- export CC=gcc-8 && export CXX=g++-8
+- if [[ "${TRAVIS_OS_NAME}" == linux ]]; then sudo apt-get -y install software-properties-common checkinstall xvfb dh-make fakeroot gpgv2 tree g++-8 ; fi
+- if [[ "${TRAVIS_OS_NAME}" == linux ]]; then export CC=gcc-8 && export CXX=g++-8 ; fi
 - if [[ "${_DIST}" == trusty ]]; then sudo apt-get install -qq qt510base && source /opt/qt510/bin/qt510-env.sh ; fi
-- if [[ "${_DIST}" == xenial ]]; then sudo apt-get install -qq qt5-default qt5-qmake ; fi
+- if [[ "${_DIST}" == xenial ]]; then sudo apt-get install -qq qt514base && source /opt/qt514/bin/qt514-env.sh ; fi
+- if [[ "${_DIST}" == bionic ]]; then sudo apt-get install -qq qt514base && source /opt/qt514/bin/qt514-env.sh ; fi
 
 
 
