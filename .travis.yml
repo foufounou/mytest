@@ -48,7 +48,7 @@ after_success:
 - mkdir -p appimage/mytest/usr/bin
 - cp mytest appimage/mytest/usr/bin
 - cp -t appimage/mytest/ mytest.desktop mytest.png
-- wget -c https://github.com/probonopd/linuxdeployqt/releases/download/6/linuxdeployqt-6-x86_64.AppImage
+- wget -c https://github.com/probonopd/linuxdeployqt/releases/download/5/linuxdeployqt-5-x86_64.AppImage
 - chmod +x linuxdeployqt-6-x86_64.AppImage
 - ./linuxdeployqt-6-x86_64.AppImage appimage/mytest/usr/bin/mytest -appimage
 - echo $PWD
