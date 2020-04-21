@@ -37,13 +37,14 @@ branches:
   
 before_install:
 - sudo apt-get update -qq
-- if [ "$DIST == "bionic" ]; then sudo apt-get install g++ qt5-default qt5-qmake ; fi
+- if [ "$DIST" == "bionic" ]; then sudo apt-get install -qq g++ qt5-default qt5-qmake ; fi
 
 install:
 - sudo apt-get install -qq tree
 
 script:
-- if [ "$DIST == "archlinux" ]; then curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash ; fi
+- if [ "$DIST" == "archlinux" ]; then curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash ; fi
+- if [ "$DIST" == "bionic" ]; then qmake && make -j$(nproc) ; fi
 - pwd && tree .
 
 
