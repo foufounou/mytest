@@ -8,56 +8,56 @@ services:
 jobs:
     include:
         - os: linux
-          dist: bionic
-          env: _DIST=bionic
-        - os: linux
           dist: trusty
-          env: _DIST=archlinux
-          archlinux:
-            packages:
-            - qt5-base
-            - qt5-tools
-            - tree
-            mount:
-            - ~/.pkg-cache:/var/cache/pacman/pkg
-            #before_install:
-            #- "sudo ln -s /dev/null /etc/pacman.d/hooks/package-cleanup.hook"
-            script:
-            - echo "before makepkg" && pwd && tree .
-            - "cd packaging && makepkg -s && cd .."
-            - echo "after makepkg" && tree .
-
+          env: _DIST=trusty
+        #- os: linux
+          #dist: xenial
+          #env: _DIST=xenial
+        #- os: linux
+          #dist: bionic
+          #env: _DIST=bionic
 
 branches:
     only:
         - master
 
-
+archlinux:
+  packages:
+  - qt5-base
+  - qt5-tools
+  - tree
+  mount:
+  - ~/.pkg-cache:/var/cache/pacman/pkg
+  #before_install:
+  #- "sudo ln -s /dev/null /etc/pacman.d/hooks/package-cleanup.hook"
+  script:
+  - echo "before makepkg" && pwd && tree .
+  - "cd packaging && makepkg -s && cd .."
+  - echo "after makepkg" && tree .
 
   
 before_install:
 - sudo apt-get update -qq
-- if [ "$DIST" == "bionic" ]; then sudo apt-get install -qq g++ qt5-default qt5-qmake ; fi
+
 
 install:
 - sudo apt-get install -qq tree
 
 script:
-- if [ "$DIST" == "archlinux" ]; then curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash ; fi
-- if [ "$DIST" == "bionic" ]; then qmake && make -j$(nproc) ; fi
+- "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
 - pwd && tree .
 
 
-deploy:
-  provider: releases
-  draft: false
-  edge: true
-  cleanup: false
-  token: $GITHUB_TOKEN
-  file_glob: true
-  file:
-    - mytest
-    - packaging/mytest*.tar.xz
-  on:
-    repo: foufounou/mytest
-    tags: true
+
+#deploy:
+  #provider: releases
+  #draft: true
+  #edge: true
+  #cleanup: true
+  #token: $GITHUB_TOKEN
+  #file:
+   #- mytest
+  #file_glob: true
+  #on:
+    #repo: foufounou/mytest
+    #tags: false
