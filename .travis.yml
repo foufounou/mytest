@@ -9,10 +9,10 @@ jobs:
     include:
         - os: linux
           dist: trusty
-          env: _DIST=trusty
-        #- os: linux
-          #dist: xenial
-          #env: _DIST=xenial
+          env: _DIST=archlinux
+        - os: linux
+          dist: bionic
+          env: _DIST=bionic
         #- os: linux
           #dist: bionic
           #env: _DIST=bionic
@@ -28,36 +28,37 @@ archlinux:
   - tree
   mount:
   - ~/.pkg-cache:/var/cache/pacman/pkg
-  #before_install:
-  #- "sudo ln -s /dev/null /etc/pacman.d/hooks/package-cleanup.hook"
   script:
   - echo "before makepkg" && pwd && tree .
   - "cd packaging && makepkg -s && cd .."
   - echo "after makepkg" && tree .
 
-  
+
 before_install:
 - sudo apt-get update -qq
 
 
 install:
+- if [ "$_DIST" != "bionic" ]; then sudo apt-get install -qq g++ qt5-default qt5-qmake ; fi
 - sudo apt-get install -qq tree
 
 script:
-- "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
+- if [ "$_DIST" != "archlinux" ]; then curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash; fi
+- if [ "$_DIST" != "bionic" ]; then qmake && make ; fi
 - pwd && tree .
 
 
 
-#deploy:
-  #provider: releases
-  #draft: true
-  #edge: true
-  #cleanup: true
-  #token: $GITHUB_TOKEN
-  #file:
-   #- mytest
-  #file_glob: true
-  #on:
-    #repo: foufounou/mytest
-    #tags: false
+deploy:
+  provider: releases
+  draft: true
+  edge: true
+  cleanup: true
+  token: $GITHUB_TOKEN
+  file:
+   - mytest
+   - packaging/mytest*.tar.xz
+  file_glob: true
+  on:
+    repo: foufounou/mytest
+    tags: false
