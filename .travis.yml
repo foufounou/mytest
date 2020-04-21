@@ -39,12 +39,12 @@ before_install:
 
 
 install:
-- if [ "$_DIST" != "bionic" ]; then sudo apt-get install -qq g++ qt5-default qt5-qmake ; fi
+- if [ "$_DIST" == "bionic" ]; then sudo apt-get install -qq g++ qt5-default qt5-qmake ; fi
 - sudo apt-get install -qq tree
 
 script:
-- if [ "$_DIST" != "archlinux" ]; then curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash; fi
-- if [ "$_DIST" != "bionic" ]; then qmake && make ; fi
+- if [ "$_DIST" == "archlinux" ]; then curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash; fi
+- if [ "$_DIST" == "bionic" ]; then qmake && make ; fi
 - pwd && tree .
 
 
