@@ -48,17 +48,16 @@ script:
 - pwd && tree .
 
 
-
 deploy:
   provider: releases
-  draft: true
+  draft: false
   edge: true
-  cleanup: true
+  cleanup: false
   token: $GITHUB_TOKEN
+  file_glob: true
   file:
    - mytest
    - packaging/mytest*.tar.xz
-  file_glob: true
   on:
     repo: foufounou/mytest
-    tags: false
+    tags: true
